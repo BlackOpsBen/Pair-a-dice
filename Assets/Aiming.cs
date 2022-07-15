@@ -34,7 +34,7 @@ public class Aiming : MonoBehaviour
     {
         currentYawMagnitude = Mathf.Lerp(currentYawMagnitude, aimInput.x, Time.deltaTime * yawResponsiveness);
 
-        Debug.Log("currentYawMagnitude: " + currentYawMagnitude);
+        //Debug.Log("currentYawMagnitude: " + currentYawMagnitude);
     }
 
     private void FixedUpdate()

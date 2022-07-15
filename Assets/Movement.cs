@@ -7,23 +7,47 @@ public class Movement : MonoBehaviour
 {
     private Rigidbody rb;
 
-    [SerializeField] private float throttleForce = 10.0f;
+    [SerializeField] private Vector3 strafeForce;
+    [SerializeField] private Vector3 throttleForce;
+    [SerializeField] private float defaultThrottleMultiplier = 1.0f;
+    [SerializeField] private float brakingThrottleMultiplier = 0.5f;
+    [SerializeField] private float boostingThrottleMultiplier = 1.5f;
 
-    private Vector2 moveRawInput;
+    private float throttleRawInput;
+    private float strafeRawInput;
+
+    private float throttleAdjusted;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        throttleAdjusted = 1.0f;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        moveRawInput = context.ReadValue<Vector2>();
+        Vector2 moveRawInput = context.ReadValue<Vector2>();
+        throttleRawInput = moveRawInput.y;
+        strafeRawInput = moveRawInput.x;
+
+        if (throttleRawInput > 0.0f)
+        {
+            throttleAdjusted = Mathf.Lerp(defaultThrottleMultiplier, boostingThrottleMultiplier, throttleRawInput);
+        }
+        else
+        {
+            throttleAdjusted = Mathf.Lerp(defaultThrottleMultiplier, brakingThrottleMultiplier, Mathf.Abs(throttleRawInput));
+        }
     }
 
     private void FixedUpdate()
     {
-        Vector3 force = new Vector3(throttleForce * moveRawInput.x, 0.0f, throttleForce * moveRawInput.y);
-        rb.AddRelativeForce(force, ForceMode.Force);
+        rb.AddRelativeForce(strafeForce * strafeRawInput, ForceMode.Force);
+        rb.AddRelativeForce(throttleForce * throttleAdjusted, ForceMode.Force);
+
+        float forwardSpeed = Vector3.Dot(rb.velocity, transform.forward);
+        Debug.Log("Forward speed: " + forwardSpeed);
+
+        
     }
 }
