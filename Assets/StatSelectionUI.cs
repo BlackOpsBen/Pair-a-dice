@@ -9,14 +9,20 @@ public class StatSelectionUI : MonoBehaviour
     [SerializeField] private Image selectionDieImage, resultDieImage;
     [SerializeField] private TextMeshProUGUI statLabel;
     [SerializeField] private Button button;
+    [SerializeField] private RollUI rollUI;
     private int index = 0;
     private int result = 0;
     private bool isSelected = false;
 
-    public void InitSelection(int index)
+    public void InitSelection(int index, RollUI rollUI)
     {
-        selectionDieImage.sprite = RollManager.Instance.diceGraphics[index].offSprite;
+        this.rollUI = rollUI;
+
+        selectionDieImage.sprite = rollUI.diceFaces[index];
+        selectionDieImage.color = rollUI.darkColor;
         statLabel.text = StatManager.Instance.stats[index];
+        resultDieImage.sprite = rollUI.emptyDie;
+        resultDieImage.color = rollUI.darkColor;
         this.index = index;
     }
 
@@ -24,24 +30,30 @@ public class StatSelectionUI : MonoBehaviour
     {
         if (!isSelected)
         {
-            selectionDieImage.sprite = RollManager.Instance.diceGraphics[index].onSprite;
+            selectionDieImage.color = rollUI.lightColor;
             button.interactable = true;
-            resultDieImage.sprite = RollManager.Instance.diceGraphics[result].onSprite;
+            resultDieImage.sprite = rollUI.diceFaces[result];
+            resultDieImage.color = rollUI.lightColor;
             this.result = result;
         }
     }
 
     public void Disable()
     {
-        selectionDieImage.sprite = RollManager.Instance.diceGraphics[index].offSprite;
-        button.interactable = false;
-        resultDieImage.sprite = RollManager.Instance.emptyDieGraphic;
+        if (!isSelected)
+        {
+            selectionDieImage.color = rollUI.darkColor;
+            button.interactable = false;
+            resultDieImage.sprite = rollUI.emptyDie;
+            resultDieImage.color = rollUI.darkColor;
+        }
     }
 
     public void OnSelect()
     {
         StatManager.Instance.EditStat(index, result);
-        selectionDieImage.sprite = null;
+        selectionDieImage.color = rollUI.redColor;
+        resultDieImage.color = rollUI.greenColor;
         button.interactable = false;
         isSelected = true;
     }

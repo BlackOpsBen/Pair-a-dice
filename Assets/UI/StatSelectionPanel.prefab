@@ -124,6 +124,7 @@ MonoBehaviour:
   resultDieImage: {fileID: 8746844061439861488}
   statLabel: {fileID: 8746844060664984819}
   button: {fileID: 8746844060475492955}
+  rollUI: {fileID: 0}
 --- !u!1 &8746844060475492950
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a32930f9d4a971469a8b0db425aa827, type: 3}
+  m_Sprite: {fileID: 21300000, guid: da04e647356279243b2e3da39d1898ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -691,7 +692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb0b46b7184c5d448a0ed177a96be248, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35a86b1ed752f9a4c867c9e920ebed95, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

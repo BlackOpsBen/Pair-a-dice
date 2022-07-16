@@ -8,9 +8,6 @@ public class RollManager : MonoBehaviour
 
     [SerializeField] private int numDice = 2;
 
-    [SerializeField] public List<DiceGraphics> diceGraphics = new List<DiceGraphics>();
-    [SerializeField] public Sprite emptyDieGraphic;
-
     private List<Die> dice = new List<Die>();
 
     private void Awake()
@@ -47,13 +44,6 @@ public class RollManager : MonoBehaviour
         }
         return results;
     }
-}
-
-[System.Serializable]
-public struct DiceGraphics
-{
-    public Sprite offSprite;
-    public Sprite onSprite;
 }
 
 public class Die

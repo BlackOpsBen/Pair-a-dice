@@ -7,7 +7,10 @@ public class RollUI : MonoBehaviour
 {
     [SerializeField] private GameObject statSelectionPrefab;
     [SerializeField] private Transform statSelectionsParentPanel;
-    [SerializeField] private Image[] diceImages;
+    [SerializeField] private Image[] rolledDiceImages;
+    [SerializeField] public Sprite[] diceFaces;
+    [SerializeField] public Sprite emptyDie;
+    [SerializeField] public Color darkColor, lightColor, redColor, greenColor;
 
     private List<StatSelectionUI> statSelections = new List<StatSelectionUI>();
 
@@ -22,7 +25,7 @@ public class RollUI : MonoBehaviour
         {
             StatSelectionUI selectionUI = Instantiate(statSelectionPrefab, statSelectionsParentPanel).GetComponent<StatSelectionUI>();
             statSelections.Add(selectionUI);
-            selectionUI.InitSelection(i);
+            selectionUI.InitSelection(i, this);
 
         }
     }
@@ -35,9 +38,9 @@ public class RollUI : MonoBehaviour
 
         List<int> diceResults = RollManager.Instance.GetDiceResults();
 
-        for (int i = 0; i < diceImages.Length; i++)
+        for (int i = 0; i < rolledDiceImages.Length; i++)
         {
-            diceImages[i].sprite = RollManager.Instance.diceGraphics[diceResults[i]].onSprite;
+            rolledDiceImages[i].sprite = diceFaces[diceResults[i]];
         }
 
         // Highlight applicable selections
