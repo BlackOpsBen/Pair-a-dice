@@ -13,8 +13,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float brakingThrottleMultiplier = 0.5f;
     [SerializeField] private float boostingThrottleMultiplier = 1.5f;
 
-    private int throttleDice = 1;
-    private int strafeDice = 1;
+    [SerializeField] private int throttleStatIndex = 0;
+    [SerializeField] private int strafeStatIndex = 0;
 
     private float throttleRawInput;
     private float strafeRawInput;
@@ -45,18 +45,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddRelativeForce(strafeForce * strafeRawInput * strafeDice, ForceMode.Force);
-        rb.AddRelativeForce(throttleForce * throttleAdjusted * throttleDice, ForceMode.Force);
-
-        float forwardSpeed = Vector3.Dot(rb.velocity, transform.forward);
-        //Debug.Log("Forward speed: " + forwardSpeed);
-
-        
-    }
-
-    public void SetDiceMultipliers(int throttleDice, int strafeDice)
-    {
-        this.throttleDice = throttleDice;
-        this.strafeDice = strafeDice;
+        rb.AddRelativeForce(strafeRawInput * StatManager.Instance.stats[strafeStatIndex].diceMultiplier * strafeForce, ForceMode.Force);
+        rb.AddRelativeForce(StatManager.Instance.stats[throttleStatIndex].diceMultiplier * throttleAdjusted * throttleForce, ForceMode.Force);
     }
 }

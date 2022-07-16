@@ -18,10 +18,19 @@ public class StatManager : MonoBehaviour
         }
     }
 
-    public List<string> stats = new List<string>();
+    public List<Stat> stats = new();
 
     public void EditStat(int index, int result)
     {
+        stats[index].diceMultiplier = result;
         Debug.Log(stats[index] + " changed to " + (result + 1));
     }
+}
+
+[System.Serializable]
+public class Stat
+{
+    public string name;
+    [HideInInspector]
+    public int diceMultiplier = 1;
 }

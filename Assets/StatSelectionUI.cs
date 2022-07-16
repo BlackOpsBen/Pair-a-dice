@@ -20,7 +20,7 @@ public class StatSelectionUI : MonoBehaviour
 
         selectionDieImage.sprite = rollUI.diceFaces[index];
         selectionDieImage.color = rollUI.darkColor;
-        statLabel.text = StatManager.Instance.stats[index];
+        statLabel.text = StatManager.Instance.stats[index].name;
         resultDieImage.sprite = rollUI.emptyDie;
         resultDieImage.color = rollUI.darkColor;
         this.index = index;
