@@ -11,6 +11,8 @@ public class Aiming : MonoBehaviour
 
     [SerializeField] private float yawResponsiveness = 10.0f;
 
+    [SerializeField] private int turningStatIndex = 2;
+
     private Vector2 aimInput;
 
     private float currentYawMagnitude = 0.0f; // 0-1
@@ -41,7 +43,7 @@ public class Aiming : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 torque = new Vector3(0.0f, yawForce * currentYawMagnitude, 0.0f);
+        Vector3 torque = new Vector3(0.0f, yawForce * StatManager.Instance.stats[turningStatIndex].diceMultiplier * currentYawMagnitude, 0.0f);
         Quaternion deltaRotation = Quaternion.Euler(torque * Time.fixedDeltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
     }

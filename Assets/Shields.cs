@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shields : MonoBehaviour
 {
+    [SerializeField] private int shieldStatIndex = 5;
+
     private int currentShields = 0;
 
     public void DamageShields()

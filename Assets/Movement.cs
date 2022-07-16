@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float boostingThrottleMultiplier = 1.5f;
 
     [SerializeField] private int throttleStatIndex = 0;
-    [SerializeField] private int strafeStatIndex = 0;
+    [SerializeField] private int strafeStatIndex = 1;
 
     private float throttleRawInput;
     private float strafeRawInput;

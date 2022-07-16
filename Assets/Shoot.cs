@@ -6,15 +6,42 @@ using UnityEngine.InputSystem;
 
 public class Shoot : MonoBehaviour
 {
-    [SerializeField] private Transform[] muzzles;
+    private MuzzleFlashes muzzleFlashes;
 
+    private Rigidbody rb; // Used to know what velocity to give to projectiles.
+
+    [SerializeField] private ProjectilePool laserPool;
+    
     private bool isShooting = false;
 
     [SerializeField] private float fireRateBase = 1.0f;
 
-    private int fireRateDice = 1;
+    [SerializeField] private int firePowerStatIndex = 3;
+    [SerializeField] private int fireRateStatIndex = 4;
 
     private float shotTimer = 0.0f;
+
+    private void Awake()
+    {
+        muzzleFlashes = GetComponent<MuzzleFlashes>();
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        shotTimer += Time.deltaTime;
+
+        if (isShooting)
+        {
+            float timePerShot = 1.0f / (fireRateBase * fireRateStatIndex);
+
+            if (shotTimer > timePerShot)
+            {
+                shotTimer = 0.0f;
+                PerformShot();
+            }
+        }
+    }
 
     public void OnFire(InputAction.CallbackContext context)
     {
@@ -28,29 +55,17 @@ public class Shoot : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        shotTimer += Time.deltaTime;
-
-        if (isShooting)
-        {
-            float timePerShot = 1.0f / (fireRateBase * fireRateDice);
-
-            if (shotTimer > timePerShot)
-            {
-                shotTimer = 0.0f;
-                PerformShot();
-            }
-        }
-    }
-
     private void PerformShot()
     {
-        Debug.LogWarning("SHOT FIRED!");
+        Transform muzzle = muzzleFlashes.GetAndUseNextMuzzle();
+
+        Projectile laser = laserPool.GetNextPooledProjectile();
+
+        laser.Reset(transform, rb.velocity);
     }
 
     public void SetDice(int result)
     {
-        fireRateDice = result;
+        fireRateStatIndex = result;
     }
 }
