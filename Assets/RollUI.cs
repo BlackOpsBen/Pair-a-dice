@@ -60,4 +60,17 @@ public class RollUI : MonoBehaviour
             }
         }
     }
+
+    public void OnSelectionMade()
+    {
+        foreach (StatSelectionUI uI in statSelections)
+        {
+            uI.Disable();
+        }
+
+        foreach (Image image in rolledDiceImages)
+        {
+            image.sprite = emptyDie;
+        }
+    }
 }

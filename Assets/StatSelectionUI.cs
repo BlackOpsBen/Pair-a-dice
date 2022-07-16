@@ -56,6 +56,7 @@ public class StatSelectionUI : MonoBehaviour
         resultDieImage.color = rollUI.greenColor;
         button.interactable = false;
         isSelected = true;
+        rollUI.OnSelectionMade();
     }
 
     public void OnReset()
