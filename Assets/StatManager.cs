@@ -18,7 +18,7 @@ public class StatManager : MonoBehaviour
         }
     }
 
-    public List<Stat> stats = new();
+    public List<Stat> stats = new List<Stat>();
 
     public void EditStat(int index, int result)
     {
