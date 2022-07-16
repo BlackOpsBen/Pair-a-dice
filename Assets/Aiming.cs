@@ -15,6 +15,8 @@ public class Aiming : MonoBehaviour
 
     private float currentYawMagnitude = 0.0f; // 0-1
 
+    private int turnDice = 1;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,4 +45,9 @@ public class Aiming : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(torque * Time.fixedDeltaTime);
         rb.MoveRotation(rb.rotation * deltaRotation);
     }
+
+    public void SetTurnDice(int turning)
+    {
+        turnDice = turning;
+    }    
 }
